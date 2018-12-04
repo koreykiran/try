@@ -91,6 +91,7 @@ A disadvantage is that it can be computationally expensive to repeat the same or
 
 > For this algorithm the distance between every instance of the test set has to calculated with every instance of test set, for this we tried using cartesian method, but this causes memory error and also takes a lot of time.
 So, we changed the approach to collect each test instance and map each train instance to the collected test instance.  
+
 ---
 
 ### Naive Bayes
