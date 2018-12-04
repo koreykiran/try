@@ -91,7 +91,7 @@ A disadvantage is that it can be computationally expensive to repeat the same or
 
 > For this algorithm the distance between every instance of the test set has to calculated with every instance of test set, for this we tried using cartesian method, but this causes memory error and also takes a lot of time.
 So, we changed the approach to collect each test instance and map each train instance to the collected test instance.  
----
+----
 ### Naive Bayes
 Naive Bayes is a classification algorithm for binary (two-class) and multi-class classification problems. It is called naive Bayes or idiot Bayes because the calculation of the probabilities for each hypothesis are simplified to make their calculation tractable. Rather than attempting to calculate the values of each attribute value P(d1, d2, d3|h), they are assumed to be conditionally independent given the target value and calculated as P(d1|h) * P(d2|H) and so on.
 
