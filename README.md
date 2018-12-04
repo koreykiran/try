@@ -1,26 +1,27 @@
-## Cloud Computing for Data Analysis: Rating Prediction System
+# Cloud Computing for Data Analysis: Rating Prediction System
 
 <img src="imagePath/imageFile.jpg" class = "inline"/>
 
-#### Authors:
-* Akshay Bankar (abankar1@uncc.edu) 
+## Authors:
+
+* Akshay Bankar [](abankar1@uncc.edu) 
 * Keyukumar Hansoti (khansoti@uncc.edu)
 * Kiran Korey	(kkorey@uncc.edu)
-***
 
-#### Overview:
+## Overview:
+
 * The Project aims to predict ratings based on the reviews provided by the users.
 * The goal of the project is to implement k-Nearest Neighbors and Naive Bayes Algorithm with the help of PySpark.
-***
 
-#### Motivation:
+
+## Motivation:
 * Every single product or place today has its own profile on web giving out information about it to the customers and visitors.
 * It not only tells the user about its features but also the reviews and ratings given to it by the people who have experienced it.
 * This urged us to automate the technique of rating prediction based on reviews and learn about the algorithms behind it.
 * The goal of this project is to determine whether a customer should buy that product or not just by looking at the ratings. 
 * This project can be used to any data set which involves user reviews and can predict its ratings though, some pre-processing could be required.
-***
-#### Data:
+
+## Data:
 * The Kaggle dataset “Hotel Reviews Data in Europe” will be used which is provided by the booking.com.
 * The data set contains 515,000 customer reviews and scoring of 1493 luxury hotels across Europe.
 * The data set contains 17 fields like Hotel Name, Average Score, Negative Review, Positive Review, Review Total Negative Word Counts, Review Total Positive Word Counts, Reviewer Score.
@@ -31,10 +32,8 @@
 * The Negative Review and Positive Review will be used as the features and Reviewer Score will be used as targets. The reviews will be converted to count vectors and fed to the model.
 
 * ##### Data Link: [515K Hotel Reviews Data in Europe](https://www.kaggle.com/jiashenliu/515k-hotel-reviews-data-in-europe)
-***
 
-
-#### Tasks Involved and Steps Implemented:
+## Tasks Involved and Steps Implemented:
 * Understanding the algorithm
 * Setup a cluster using  Amazon EMR with spark.
 * Install necessary software like Jupyter Notebook, sci-kit learn library, nltk library, pandas, etc..
@@ -44,9 +43,8 @@
 * Implementing k-Nearest Neighbors and Naive Bayes with pyspark.
 * Execute the algorithms and generate reports.
 * Project Report
-***
 
-#### Algorithms :
+## Algorithms :
 
 ### K-Nearest Neighbor: 
 K-nearest neighbour clustering (KNN) is a supervised classification technique that looks at the nearest neighbours, in a training set of classified instances, of an unclassified instance in order to identify the class to which it belongs.
@@ -97,13 +95,12 @@ So, we changed the approach to collect each test instance and map each train ins
 ### Naive Bayes
 Naive Bayes is a classification algorithm for binary (two-class) and multi-class classification problems. It is called naive Bayes or idiot Bayes because the calculation of the probabilities for each hypothesis are simplified to make their calculation tractable. Rather than attempting to calculate the values of each attribute value P(d1, d2, d3|h), they are assumed to be conditionally independent given the target value and calculated as P(d1|h) * P(d2|H) and so on.
 
-> Steps
+---
+ > **Procedure**  
+---
 
-***
-
-#### Expectations/Aspects
-##### 1. What to expect?
-
+## Expectations/Aspects
+#### 1. What to expect?
 The main aim of the project deliverable will be to predict the rating based on the reviews provided by the users.
 
  1.  Data will be pre-processed using NLP techniques like Stemming and Lemmatization to make sense of the reviews provided by the customer and how harsh can that review be on the rating.
@@ -113,24 +110,23 @@ The main aim of the project deliverable will be to predict the rating based on t
  5. Compute the accuracy of the models.
  6. Run the models in Amazon EMR
 
-##### 2. Likely to accomplish
-
+#### 2. Likely to accomplish
 
 1. Compare the results of KNN and Naïve-Bayes implemented algorithms.
 2. Implementation of KNN model with sci-kit libraries and comparison of the accuracy
 3. Implementation of Naïve Bayes model with sci-kit libraries and comparison of the accuracy
 4. Documentation and online-publishing of the codebase.
 
-##### 3. Ideal Accomplishments.
+#### 3. Ideal Accomplishments.
 
 1. Compare the results of the implemented models with the library implementations like sci-kit learn
 2. Suggested modifications/changes in the existing or project implementation.
 3. ~~Perform K-Fold cross validation and tune the algorithms by testing it on different alpha values for Naïve Bayes and K values for KNN algorithms.~~
 4. ~~Creating a easy to use library that one can use for analysis purpose.~~
-***
 
 
-#### Tools & Technology
+
+## Tools & Technology
 
 * Amazon EMR (Spark 2.2.0) (1 master and 2 slaves) for running the program on cluster.
 * Apache Spark - pySpark
@@ -138,8 +134,7 @@ The main aim of the project deliverable will be to predict the rating based on t
 * Git for tracking the code changes.
 * GitHub for hosting the website.
 
-***
-####  Installation
+##  Installation
 
 1.  Create a Spark Cluster on Amazon EMR and get the details of the cluster to use it on Terminal.
 	 Choose the following configuration for the cluster: 
@@ -151,7 +146,10 @@ The main aim of the project deliverable will be to predict the rating based on t
 	~~~~
 	ssh -i keypair.pem  hadoop@ec2-52-91-121-171.compute-1.amazonaws.com
 	~~~~
-3. Install / Import following packages to the cluster.
+3. Copy all the Jupyter notebooks and Data files to Master EC2 instance
+	> You can use WinScp or scp command to do this.
+
+4. Install / Import following packages to the cluster.
 	~~~~
 	sudo pip install jupyter
 	sudo  pip install sklearn
@@ -164,32 +162,36 @@ The main aim of the project deliverable will be to predict the rating based on t
     nltk.download("stopwords")
     nltk.download("wordnet")
 	~~~~
-4. Repeat Step 2 and 3 to the Slave EC2 instances.
+5. Repeat Step 2 and 3 to the Slave EC2 instances.
 	In our case we had 2 slave EC2 instances. 
 	To connect to Slaves you have to login as **ec2-user**
 	~~~~
 	ssh -i keypair.pem ec2-user@ec2-54-197-45-104.compute-1.amazonaws.com
 	~~~~
 	> For nltk you have to move the **nltk_data** to "**/home/**" location
-5. 
-* Run PCSalgorithm on input data consisting 4,20,000 ratings stored on S3 Storage. To recommend movies for user 1199825.
-~~~~
-spark-submit s3://itcs6190/PCSalgorithm.py s3://itcs6190/movie_input_ratings.txt s3://itcs6190/movie_titles.csv 1199825
-~~~~
 
-* Run ALS on input data consisting 4,20,000 ratings stored on S3 Storage. To recommend movies for user 1199825.
-~~~~
-spark-submit s3://itcs6190/ALS.py s3://itcs6190/movie_input_ratings.txt s3://itcs6190/movie_titles.csv 1199825
-~~~~
+6. SSH to your AWS machine with port forwarding and Configure PySpark driver to use Jupyter Notebook
+	For this while connecting to the instance you need to redirect all the request from a specific port from local machine to EC2 instance.
+	~~~~
+	ssh -i nvirginia_kkorey.pem -L 8000:localhost:8889 hadoop@ec2-52-91-121-171.compute-1.amazonaws.com
+	~~~~
+	Once connected you need to add some Environment variables to the path the master instance
+	~~~~
+	export PYSPARK_DRIVER_PYTHON=jupyter
+	
+	export PYSPARK_DRIVER_PYTHON_OPTS='notebook --no-browser --port=8889'
+	
+	source ~/.bashrc
+	~~~~
+7. Access the Jupyter Notebook from your Web-Browser
+	Type `pyspark` on your AWS machine and copy the Jupyter notebook token displayed.
+	Go to your web-browser and navigate to the following URL:
 
-* Run ALS using library for recommend movies for all users
-~~~~
-spark-submit s3://itcs6190/ALSUsingLibrary.py s3://itcs6190/movie_input_ratings.txt
-~~~~
+	`localhost:8000`
 
-***
+	Paste the copied token in the required field and press  **Log in**.
 
-#### Outputs for User ID: 1488844 & Results
+## Results
 
 The programs to recommend were ran on Amazon EC2 Spark cluster. And satisfactory recommendations were obtained using 3 methods.
 
@@ -201,24 +203,17 @@ The programs to recommend were ran on Amazon EC2 Spark cluster. And satisfactory
 
 <img src="images/Emoticons/ALS.png" alt ="Alternating Least Squares Recommendation" class = "inline"/>
 
-
-***
-
-#### Conclusion:
+## Conclusion:
 
 * Statement1
 * Statement2
 
-***
-
-#### Future Scope:
+## Future Scope:
 
 * Statement1
 * Statement2 
 
-***
-
-#### Code Snippet:
+## Code Snippet:
 
 * Data Cleaning
 
@@ -228,16 +223,12 @@ The programs to recommend were ran on Amazon EC2 Spark cluster. And satisfactory
 
 <img src="imagePath/imageFile.png" class = "inline"/>
 
-***
-
-#### Challenges Faced:
+## Challenges Faced:
 
 * Statement1
 * Statement2
 
-***
-
-#### Work Division:
+## Work Division:
 
 The complete project has been accomplished together with inputs from both the team members. 
 
@@ -250,9 +241,8 @@ The complete project has been accomplished together with inputs from both the te
 | 4       |  Task4 		  |        MemberName |
 | 5       |  Task5		  |        MemberName |
 
-***
 
-#### References:
+## References:
 *
 
 *
