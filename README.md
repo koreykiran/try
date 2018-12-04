@@ -4,7 +4,7 @@
 
 ## Authors:
 
-* Akshay Bankar [](abankar1@uncc.edu) 
+* Akshay Bankar (abankar1@uncc.edu) 
 * Keyukumar Hansoti (khansoti@uncc.edu)
 * Kiran Korey	(kkorey@uncc.edu)
 
@@ -45,8 +45,9 @@
 * Project Report
 
 ## Algorithms :
-
+---
 ### K-Nearest Neighbor: 
+---
 K-nearest neighbour clustering (KNN) is a supervised classification technique that looks at the nearest neighbours, in a training set of classified instances, of an unclassified instance in order to identify the class to which it belongs.
 
 The model for KNN is the entire training dataset. When a prediction is required for a unseen data instance, the kNN algorithm will search through the training dataset for the k-most similar instances. 
@@ -92,14 +93,40 @@ A disadvantage is that it can be computationally expensive to repeat the same or
 > For this algorithm the distance between every instance of the test set has to calculated with every instance of test set, for this we tried using cartesian method, but this causes memory error and also takes a lot of time.
 So, we changed the approach to collect each test instance and map each train instance to the collected test instance.  
 
----
-
-### Naive Bayes
-Naive Bayes is a classification algorithm for binary (two-class) and multi-class classification problems. It is called naive Bayes or idiot Bayes because the calculation of the probabilities for each hypothesis are simplified to make their calculation tractable. Rather than attempting to calculate the values of each attribute value P(d1, d2, d3|h), they are assumed to be conditionally independent given the target value and calculated as P(d1|h) * P(d2|H) and so on.
 
 ---
- > **Procedure**  
+### Naive Bayes Classifier
 ---
+
+Naive Bayes classifiers are a collection of classification algorithms based on **Bayes’ Theorem**. It is not a single algorithm but a family of algorithms where all of them share a common principle, i.e. every pair of features being classified is independent of each other. 
+
+ For example, a fruit may be considered to be an apple if it is red, round, and about 3″ in diameter and as an orange if it is orange, round, and about 2.5″ in diameter . A Naive Bayes classifier considers each of these “features” (red, orange, round , 2.5″ and 3” in diameter) to contribute independently to the probability that the fruit is an apple/orange, regardless of any correlations between features. Features, however, aren’t always independent which is often seen as a shortcoming of the Naive Bayes algorithm and this is why it’s labeled “naive”.
+
+Naive Bayes is a probabilistic classifier that makes classifications using the **Maximum A Posteriori** decision rule. Hence, to find posterior probability it will first calculate the prior probability and then likelihood of an object to a particular class.
+
+Prior probabilities are based on previous experience and often it used to predict outcomes before they actually happen.
+
+To compute the maximum likelihood for new object, calculate the probability of that object belonging to each class label and class with the highest probability will be chosen as a predicted class for that object.
+
+In the Bayesian analysis, the final classification is produced by combining both sources of information, i.e., the prior and the likelihood, to form a posterior probability using the Bayes' rule.
+
+---
+> **Procedure** 
+---
+
+* Load data (here data is loaded from a file)
+* Pre process the data using NLP techniques 
+    * Tokenize the reviews and remove stop words, emoticons, punctuations, non alphanumeric words
+    * Perform stemming on the tokens using Porter Stemmer.
+    * Perform lemmatizing on the tokens using WordNetLemmatizer.  
+    * Convert class labels to int
+ * Split the data into test and training sets
+ * Calculate the total words in training data and it's frequency
+ * Calculate the number of words in each class and it's frequency in that class
+ * Calculate the probability (likelihood) of a word being in a class and probability 
+ of each class
+ * Compute the likelihood of the review in each class and choose the class with the maximum likelihood as a predicted class for that review.
+
 
 ## Expectations/Aspects
 #### 1. What to expect?
@@ -197,51 +224,55 @@ The main aim of the project deliverable will be to predict the rating based on t
 
 The programs to recommend were ran on Amazon EC2 Spark cluster. And satisfactory recommendations were obtained using 3 methods.
 
-* k-Nearest Neighbor implementation.
-
-<img src="images/Emoticons/PCS.png" alt ="Pearson Correlation Coefficient Recommendation" class = "inline"/>
-
 * Naive Bayes implementation.
 
-<img src="images/Emoticons/ALS.png" alt ="Alternating Least Squares Recommendation" class = "inline"/>
+<img src="https://github.com/koreykiran/RatingPrediction/blob/master/images/NB.JPG" alt ="Pearson Correlation Coefficient Recommendation" class = "inline"/>
+
+* Naive Bayes - Sk-learn library 
+
+<img src="https://github.com/koreykiran/RatingPrediction/blob/master/images/NBLib.png" alt ="Naive Bayes Implementation" class = "inline"/>
 
 ## Conclusion:
 
-* Statement1
-* Statement2
+* The objective of the project was to predict the rating based on the review and to implement the KNN and Naive Bayes algorithm in a distributed fashion which was accomplished successfully.
+*  The accuracy of the models could be improved by changing the features used, which is discussed in the future scope.
 
 ## Future Scope:
 
-* Statement1
-* Statement2 
+*  Though the algorithms implemented are correct which can be verified from the accuracy of the library version of the same algorithms, the features choosen was not appropriate.
+* We can choose better features like TF-IDF and consider bigram and Trigram possibilities and also perform feature union by choosing features like POS tagging and considering the similar words also for the words in the reviews.
+* We can package this as a library for use by ecommerce websites.
 
 ## Code Snippet:
 
-* Data Cleaning
-
-<img src="imagePath/imageFile.png" class = "inline"/>
-
-* kNN
-
-<img src="imagePath/imageFile.png" class = "inline"/>
+* [KNN](https://github.com/koreykiran/RatingPrediction/blob/master/KNN.ipynb)
+* [KNN - Sklearn](https://github.com/koreykiran/RatingPrediction/blob/master/KNN_lib.ipynb)
+* [Naive Bayes](https://github.com/koreykiran/RatingPrediction/blob/master/NB.ipynb)
+* [Naive Bayes - sklearn](https://github.com/koreykiran/RatingPrediction/blob/master/NB-Library.ipynb)
 
 ## Challenges Faced:
 
-* Statement1
-* Statement2
+* Out of Memory Error was one of the biggest challenges that we faced, to resolve this issue we reduced the memory consumption by each task and also moved the execution of Algorithms from local machine to AWS EMR clustures.
+* In AWS EMR we used 1-Master : 2-Slave architecture, at first we installed the necessary packages only in the master instance, but our method of implementation needed the packages to be installed in the slave instances as well, it took a while to figure this out and resolve this issue.
+* When we were trying  to test the data with library implementation, we used to run out of memory even in EMR, so we to parallelize the prediction and for this we had to brodcast the classifier object to the slave nodes.
 
 ## Work Division:
 
-The complete project has been accomplished together with inputs from both the team members. 
+The complete project has been accomplished together with collabrating and taking inputs from all the team members. 
 
-
-| Number  | Task                  | Contribution      |
-| ------- :|:---------------------:| -----------------:|
-| 1       |  Task1		  |        MemberName |
-| 2       |  Task2		  |        MemberName |
-| 3       |  Task3		  |        MemberName |
-| 4       |  Task4 		  |        MemberName |
-| 5       |  Task5		  |        MemberName |
+| Name | Task | 
+| -- | -- |
+| Akshay Bankar | Split data into train and test |
+|  | Compute accuracy of the model |
+|  | Implementation of Naïve Bayes model with sci-kit libraries and comparison of the accuracy |
+| Keyur Hansoti | Pre-processing |
+|  | Build the model by Implementing Naïve Bayes | 
+|  | Make a web page illustrating your results |
+|  | Compare the results |
+| Kiran Korey | Install Spark and get EC2 ready for running |
+|  | Build the model by implementing KNN |
+|  | Build the model by Implementing Naïve Bayes |
+|  | Implementation of KNN model with sci-kit libraries and comparison of the accuracy |
 
 
 ## References:
